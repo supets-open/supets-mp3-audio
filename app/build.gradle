@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        applicationId "com.supets.pet"
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        ndk {
+             abiFilters 'armeabi', 'armeabi-v7a', 'mips', 'x86'
+          }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+
+        main {
+            jniLibs.srcDirs=['libs']
+        }
+
+    }
+
+    buildTypes {
+        debug {
+
+            buildConfigField "boolean", "API_ENV", "false"
+
+            zipAlignEnabled true
+        }
+
+        release {
+            buildConfigField "boolean", "API_ENV", "true"
+
+            zipAlignEnabled true
+            minifyEnabled true
+            proguardFile './proguard-rules.pro'
+            // 移除无用的resource文件
+            shrinkResources true
+        }
+
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile project(':mp3recorder')
+    compile project(':sounchtouch')
+}
+
