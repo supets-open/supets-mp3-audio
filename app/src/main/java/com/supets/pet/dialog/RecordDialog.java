@@ -11,16 +11,14 @@ import android.view.WindowManager;
 import com.supets.pet.R;
 import com.supets.pet.nativelib.Settings;
 
-public class RecordDialog extends Dialog implements
-        PlayLayoutView.OnSendCallBackListener,
-        RecordLayoutView.OnRecordCALLBackListener,
-        SounchTouchView.OnSoundTouchListener {
+public class RecordDialog extends Dialog {
 
     private PlayLayoutView mPlayView;
     private RecordLayoutView mRecordView;
     private SounchTouchView mSoundTouchView;
 
     private MYAudio audio;
+    private int voiceType = 0;//是否变声了
 
     public RecordDialog(Context context) {
         super(context, R.style.ShareDialog);
@@ -38,9 +36,46 @@ public class RecordDialog extends Dialog implements
         mPlayView = (PlayLayoutView) findViewById(R.id.playLayout);
         mSoundTouchView = (SounchTouchView) findViewById(R.id.voicelayout);
 
-        mSoundTouchView.setListener(this);
-        mPlayView.setOnSendCallBackListener(this);
-        mRecordView.setListener(this);
+        mSoundTouchView.setListener(new SounchTouchView.OnSoundTouchListener() {
+            @Override
+            public void onConfirm(int type1) {
+                //显示播放层
+                showPlayLay();
+
+                voiceType = type1;
+                mPlayView.setAudio(voiceType == 0 ? Settings.recordingOriginPath : Settings.recordingVoicePath, audio.length);
+            }
+
+            @Override
+            public void onCancel(int type) {
+                //隐藏自己
+                dismiss();
+            }
+        });
+        mPlayView.setOnSendCallBackListener(new PlayLayoutView.OnSendCallBackListener() {
+            @Override
+            public void send() {
+                dismiss();
+                if (mListener != null) {
+                    audio.audio_url = voiceType == 0 ? Settings.recordingOriginPath : Settings.recordingVoicePath;
+                    mListener.onSend(audio);
+                }
+            }
+
+            @Override
+            public void reload() {
+                mRecordView.hideAnim();
+                showRecordLay();
+            }
+        });
+        mRecordView.setListener(new RecordLayoutView.OnRecordCALLBackListener() {
+            @Override
+            public void onRecordTime(String path, int length) {
+                showVoiceLay();
+                audio = new MYAudio(path, length);
+                mSoundTouchView.setAudioLength(length);
+            }
+        });
 
         showRecordLay();
 
@@ -53,53 +88,7 @@ public class RecordDialog extends Dialog implements
     }
 
 
-    @Override
-    public void send() {
-        dismiss();
-        if (mListener != null) {
-            audio.audio_url = type == 0 ? Settings.recordingOriginPath : Settings.recordingVoicePath;
-            mListener.onSend(audio);
-        }
-
-    }
-
-    @Override
-    public void reload() {
-        mRecordView.hideAnim();
-
-        showRecordLay();
-
-    }
-
-    @Override
-    public void onRecordTime(String path, int length) {
-
-        showVoiceLay();
-
-        audio = new MYAudio(path, length);
-        mSoundTouchView.setAudioLength(length);
-    }
-
-    private int type = 0;
-
-    @Override
-    public void onConfirm(int type) {
-        //显示播放层
-        mPlayView.setVisibility(View.VISIBLE);
-        mSoundTouchView.setVisibility(View.GONE);
-        mRecordView.setVisibility(View.GONE);
-
-        this.type = type;
-        mPlayView.setAudio(type == 0 ? Settings.recordingOriginPath : Settings.recordingVoicePath, audio.length);
-    }
-
-    @Override
-    public void onCancel(int type) {
-        //隐藏自己
-        dismiss();
-    }
-
-    OnSendVoiceListenr mListener;
+    private OnSendVoiceListenr mListener;
 
     public void setOnSendVoiceListenr(OnSendVoiceListenr mListener) {
         this.mListener = mListener;
