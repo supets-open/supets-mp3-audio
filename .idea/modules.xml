@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libvoice/libvoice.iml" filepath="$PROJECT_DIR$/libvoice/libvoice.iml" />
       <module fileurl="file://$PROJECT_DIR$/mp3recorder/mp3recorder.iml" filepath="$PROJECT_DIR$/mp3recorder/mp3recorder.iml" />
       <module fileurl="file://$PROJECT_DIR$/sounchtouch/sounchtouch.iml" filepath="$PROJECT_DIR$/sounchtouch/sounchtouch.iml" />
       <module fileurl="file://$PROJECT_DIR$/supets-mp3-audio.iml" filepath="$PROJECT_DIR$/supets-mp3-audio.iml" />

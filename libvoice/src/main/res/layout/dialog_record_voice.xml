@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <com.supets.pet.libvoice.widget.RecordLayoutView
+        android:id="@+id/recordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.supets.pet.libvoice.widget.PlayLayoutView
+        android:id="@+id/playLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.supets.pet.libvoice.widget.SounchTouchView
+        android:id="@+id/voicelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>

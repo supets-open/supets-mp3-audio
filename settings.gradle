@@ -1,1 +1,1 @@
-include ':app', ':mp3recorder', ':sounchtouch'
+include ':app', ':mp3recorder', ':sounchtouch', ':libvoice'
