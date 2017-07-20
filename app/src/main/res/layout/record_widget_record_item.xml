@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingBottom="25dp"
+    android:paddingTop="25dp">
+
+
+    <RelativeLayout
+        android:id="@+id/animLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@string/record_down_shuohua"
+            android:textColor="@color/app_color"
+            android:textSize="11sp" />
+
+        <ImageView
+            android:id="@+id/leftAnim"
+            android:layout_width="39dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/time"
+            android:background="@drawable/anim_drawable_record_left_anim" />
+
+        <ImageView
+            android:id="@+id/rightAnim"
+            android:layout_width="39dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/time"
+            android:background="@drawable/anim_drawable_record_right_anim" />
+    </RelativeLayout>
+
+    <com.supets.pet.mp3.RecordButton
+        android:id="@+id/record"
+        android:layout_marginBottom="15dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/recording" />
+
+</LinearLayout>

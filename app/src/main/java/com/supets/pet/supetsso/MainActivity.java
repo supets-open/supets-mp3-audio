@@ -2,6 +2,8 @@
 package com.supets.pet.supetsso;
 
 import com.supets.pet.R;
+import com.supets.pet.dialog.MYAudio;
+import com.supets.pet.dialog.RecordDialog;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -74,6 +76,24 @@ public class MainActivity extends Activity {
                         recorder.pause();
                     }
                 }
+            }
+        });
+
+
+
+        findViewById(R.id.trnsferButton).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                RecordDialog  dialog=new RecordDialog(MainActivity.this);
+                dialog.setOnSendVoiceListenr(new RecordDialog.OnSendVoiceListenr() {
+                    @Override
+                    public void onSend(MYAudio audio) {
+
+                    }
+                });
+                dialog.show();
+
             }
         });
 

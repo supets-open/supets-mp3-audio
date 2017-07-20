@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">SupetsSo</string>
+    <string name="app_name">变声器</string>
+
+
+    <string name="ok">确认</string>
+    <string name="cancel">取消</string>
+
+    <string-array name="effect">
+        <item>原声</item>
+        <item>萝莉</item>
+        <item>大叔</item>
+        <item>惊悚</item>
+        <item>搞怪</item>
+        <item>蜗牛</item>
+    </string-array>
+
+    <string name="record_down_shuohua">按住说话</string>
+    <string name="record_reload">重录</string>
+    <string name="record_send">发布</string>
+
 </resources>

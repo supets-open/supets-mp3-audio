@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <include
+            android:id="@+id/effect1"
+            layout="@layout/include_record_efffert_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <include  android:id="@+id/effect2"
+            layout="@layout/include_record_efffert_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp" />
+
+        <include  android:id="@+id/effect3"
+            layout="@layout/include_record_efffert_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <include
+            android:id="@+id/effect4"
+            layout="@layout/include_record_efffert_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <include  android:id="@+id/effect5"
+            layout="@layout/include_record_efffert_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp" />
+
+        <include  android:id="@+id/effect6"
+            layout="@layout/include_record_efffert_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_dialog_negative_selector"
+            android:text="@string/cancel"
+            android:textColor="#303030"
+            android:textSize="16sp"
+            tools:ignore="NewApi" />
+
+        <Button
+            android:id="@+id/ok"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_dialog_positive_selector"
+            android:text="@string/ok"
+            android:textColor="@color/app_color"
+            android:textSize="16sp"
+            tools:ignore="NewApi" />
+    </LinearLayout>
+
+</LinearLayout>
