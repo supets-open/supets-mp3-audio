@@ -1,56 +1,57 @@
 package com.supets.pet.dialog;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.supets.pet.R;
 
-public class SounchTouchHolder implements View.OnClickListener {
-
-    private View mWholeView;
-
-    private View recordLayout;
-    private View voicelayout;
-    private View playLayout;
-
+public class SounchTouchView extends FrameLayout implements View.OnClickListener {
 
     private Button mOk;
     private Button mCancel;
-
 
     private OnSoundTouchListener mListener;
 
     private int type = 0;
     private int length = 0;
 
-    public SounchTouchHolder(View view) {
-        this.mWholeView = view;
+
+    public SounchTouchView(@NonNull Context context) {
+        super(context);
         init();
     }
 
+    public SounchTouchView(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
 
     private PlaySoundTouchWidget[] plays = new PlaySoundTouchWidget[6];
     private TextView[] text = new TextView[6];
     private View[] effects = new View[6];
 
-    private String[] effect=null;
+    private String[] effect = null;
+
     private void init() {
-        effect= mWholeView.getResources().getStringArray(R.array.effect);
+        LayoutInflater.from(getContext()).inflate(R.layout.record_widget_soundtouch, this);
 
-        recordLayout = mWholeView.findViewById(R.id.recordLayout);
-        voicelayout = mWholeView.findViewById(R.id.voicelayout);
-        playLayout = mWholeView.findViewById(R.id.playLayout);
-
-        mCancel = (Button) mWholeView.findViewById(R.id.cancel);
-        mOk = (Button) mWholeView.findViewById(R.id.ok);
+        effect = getResources().getStringArray(R.array.effect);
+        mCancel = (Button) findViewById(R.id.cancel);
+        mOk = (Button) findViewById(R.id.ok);
         mOk.setOnClickListener(this);
         mCancel.setOnClickListener(this);
 
         for (int i = 0; i < 6; i++) {
-            final int index=i;
+            final int index = i;
             int id = getIdByName("effect" + (index + 1));
-            effects[index] = mWholeView.findViewById(id);
+            effects[index] = findViewById(id);
             plays[index] = (PlaySoundTouchWidget) effects[index].findViewById(R.id.playsound);
             plays[index].setEfffctType(index);
             text[index] = (TextView) effects[index].findViewById(R.id.effectText);
@@ -70,9 +71,8 @@ public class SounchTouchHolder implements View.OnClickListener {
     }
 
 
-
-    public  int getIdByName(String name) {
-        return mWholeView.getResources().getIdentifier(name, "id", mWholeView.getContext().getPackageName());
+    public int getIdByName(String name) {
+        return getResources().getIdentifier(name, "id", getContext().getPackageName());
     }
 
 
@@ -82,36 +82,10 @@ public class SounchTouchHolder implements View.OnClickListener {
         }
     }
 
-
-    private void ok() {
-        if (playLayout != null) {
-            playLayout.setVisibility(View.VISIBLE);
-        }
-        if (recordLayout != null) {
-            recordLayout.setVisibility(View.GONE);
-        }
-        if (voicelayout != null) {
-            voicelayout.setVisibility(View.GONE);
-        }
-    }
-
-    private void cancel() {
-        if (recordLayout != null) {
-            recordLayout.setVisibility(View.GONE);
-        }
-        if (voicelayout != null) {
-            voicelayout.setVisibility(View.GONE);
-        }
-        if (playLayout != null) {
-            playLayout.setVisibility(View.GONE);
-        }
-    }
-
     @Override
     public void onClick(View v) {
         if (v == mOk) {
             NotifityBus.broadcast("stop", null);
-            ok();
             if (mListener != null) {
                 mListener.onConfirm(type);
             }
@@ -119,7 +93,6 @@ public class SounchTouchHolder implements View.OnClickListener {
 
         if (v == mCancel) {
             NotifityBus.broadcast("stop", null);
-            cancel();
             if (mListener != null) {
                 mListener.onCancel(type);
             }

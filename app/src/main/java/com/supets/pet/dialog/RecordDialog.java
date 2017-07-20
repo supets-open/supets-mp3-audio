@@ -12,13 +12,13 @@ import com.supets.pet.R;
 import com.supets.pet.nativelib.Settings;
 
 public class RecordDialog extends Dialog implements
-        PlayLayoutHolder.OnSendCallBackListener,
-        RecordLayoutHolder.OnRecordCALLBackListener,
-        SounchTouchHolder.OnSoundTouchListener {
+        PlayLayoutView.OnSendCallBackListener,
+        RecordLayoutView.OnRecordCALLBackListener,
+        SounchTouchView.OnSoundTouchListener {
 
-    private RecordLayoutHolder mRecordHolder;
-    private PlayLayoutHolder mPlayHolder;
-    private SounchTouchHolder mSoundTouchHolder;
+    private PlayLayoutView mPlayView;
+    private RecordLayoutView mRecordView;
+    private SounchTouchView mSoundTouchView;
 
     private MYAudio audio;
 
@@ -34,12 +34,16 @@ public class RecordDialog extends Dialog implements
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.width = getContext().getResources().getDisplayMetrics().widthPixels;
 
-        mRecordHolder = new RecordLayoutHolder(mView);
-        mPlayHolder = new PlayLayoutHolder(mView);
-        mSoundTouchHolder = new SounchTouchHolder(mView);
-        mSoundTouchHolder.setListener(this);
-        mPlayHolder.setOnSendCallBackListener(this);
-        mRecordHolder.setListener(this);
+        mRecordView = (RecordLayoutView) findViewById(R.id.recordLayout);
+        mPlayView = (PlayLayoutView) findViewById(R.id.playLayout);
+        mSoundTouchView = (SounchTouchView) findViewById(R.id.voicelayout);
+
+        mSoundTouchView.setListener(this);
+        mPlayView.setOnSendCallBackListener(this);
+        mRecordView.setListener(this);
+
+        showRecordLay();
+
         setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
@@ -53,7 +57,7 @@ public class RecordDialog extends Dialog implements
     public void send() {
         dismiss();
         if (mListener != null) {
-            audio.audio_url=type==0? Settings.recordingOriginPath: Settings.recordingVoicePath;
+            audio.audio_url = type == 0 ? Settings.recordingOriginPath : Settings.recordingVoicePath;
             mListener.onSend(audio);
         }
 
@@ -61,27 +65,37 @@ public class RecordDialog extends Dialog implements
 
     @Override
     public void reload() {
-        mRecordHolder.hideAnim();
-        mRecordHolder.showRecordLay();
+        mRecordView.hideAnim();
+
+        showRecordLay();
+
     }
 
     @Override
     public void onRecordTime(String path, int length) {
-        audio = new MYAudio(path, length);
-        mSoundTouchHolder.setAudioLength(length);
 
+        showVoiceLay();
+
+        audio = new MYAudio(path, length);
+        mSoundTouchView.setAudioLength(length);
     }
 
     private int type = 0;
 
     @Override
     public void onConfirm(int type) {
+        //显示播放层
+        mPlayView.setVisibility(View.VISIBLE);
+        mSoundTouchView.setVisibility(View.GONE);
+        mRecordView.setVisibility(View.GONE);
+
         this.type = type;
-        mPlayHolder.setAudio(type==0? Settings.recordingOriginPath: Settings.recordingVoicePath,audio.length);
+        mPlayView.setAudio(type == 0 ? Settings.recordingOriginPath : Settings.recordingVoicePath, audio.length);
     }
 
     @Override
     public void onCancel(int type) {
+        //隐藏自己
         dismiss();
     }
 
@@ -91,7 +105,26 @@ public class RecordDialog extends Dialog implements
         this.mListener = mListener;
     }
 
-    public  interface OnSendVoiceListenr{
-         void onSend(MYAudio audio);
+    public interface OnSendVoiceListenr {
+        void onSend(MYAudio audio);
+    }
+
+
+    public void showVoiceLay() {
+        mRecordView.setVisibility(View.GONE);
+        mSoundTouchView.setVisibility(View.VISIBLE);
+        mPlayView.setVisibility(View.GONE);
+    }
+
+    public void showRecordLay() {
+        mRecordView.setVisibility(View.VISIBLE);
+        mSoundTouchView.setVisibility(View.GONE);
+        mPlayView.setVisibility(View.GONE);
+    }
+
+    public void showPlayLay() {
+        mPlayView.setVisibility(View.VISIBLE);
+        mSoundTouchView.setVisibility(View.GONE);
+        mRecordView.setVisibility(View.GONE);
     }
 }

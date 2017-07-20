@@ -1,42 +1,44 @@
 package com.supets.pet.dialog;
 
+import android.content.Context;
 import android.graphics.drawable.Animatable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.supets.pet.R;
 import com.supets.pet.nativelib.Settings;
 
-public class RecordLayoutHolder implements RecordButton.OnRecordListener {
+public class RecordLayoutView extends FrameLayout implements RecordButton.OnRecordListener {
+
     private RecordButton mRecordButton;
     private TextView mTime;
     private View leftAnim;
     private View rightAnim;
-    private View mWholeView;
 
-    private View recordLayout;
-    private View voicelayout;
-    private View playLayout;
+    public RecordLayoutView(@NonNull Context context) {
+        super(context);
+        init();
+    }
 
-
-    public RecordLayoutHolder(View view) {
-        this.mWholeView = view;
+    public RecordLayoutView(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
         init();
     }
 
     private void init() {
-        mRecordButton = (RecordButton) mWholeView.findViewById(R.id.record);
-        mTime = (TextView) mWholeView.findViewById(R.id.time);
-        leftAnim = mWholeView.findViewById(R.id.leftAnim);
-        rightAnim = mWholeView.findViewById(R.id.rightAnim);
+       LayoutInflater.from(getContext()).inflate(R.layout.record_widget_record_item, this);
+        mRecordButton = (RecordButton) findViewById(R.id.record);
+        mTime = (TextView) findViewById(R.id.time);
+        leftAnim = findViewById(R.id.leftAnim);
+        rightAnim = findViewById(R.id.rightAnim);
         mRecordButton.setOnRecordListener(this);
         hideAnim();
-        recordLayout = mWholeView.findViewById(R.id.recordLayout);
-        voicelayout = mWholeView.findViewById(R.id.voicelayout);
-        playLayout = mWholeView.findViewById(R.id.playLayout);
-
-        showRecordLay();
     }
 
     private void showAnim() {
@@ -62,56 +64,18 @@ public class RecordLayoutHolder implements RecordButton.OnRecordListener {
     @Override
     public void recordStart() {
         showAnim();
-        showRecordLay();
+//        showRecordLay();
     }
-
-    public void showVoiceLay() {
-        if (recordLayout != null) {
-            recordLayout.setVisibility(View.GONE);
-        }
-        if (voicelayout != null) {
-            voicelayout.setVisibility(View.VISIBLE);
-        }
-        if (playLayout != null) {
-            playLayout.setVisibility(View.GONE);
-        }
-    }
-
-    public void showRecordLay() {
-        if (recordLayout != null) {
-            recordLayout.setVisibility(View.VISIBLE);
-        }
-        if (voicelayout != null) {
-            voicelayout.setVisibility(View.GONE);
-        }
-        if (playLayout != null) {
-            playLayout.setVisibility(View.GONE);
-        }
-    }
-
-    public void showPlayLay() {
-        if (playLayout != null) {
-            playLayout.setVisibility(View.VISIBLE);
-        }
-        if (voicelayout != null) {
-            voicelayout.setVisibility(View.GONE);
-        }
-        if (recordLayout != null) {
-            recordLayout.setVisibility(View.GONE);
-        }
-    }
-
 
     @Override
     public void recordFail() {
         hideAnim();
-        Toast.makeText(mWholeView.getContext(), "录音失败", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "录音失败", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void recordSuccess(String path, int length) {
         hideAnim();
-        showVoiceLay();
         if (mListener != null) {
             mListener.onRecordTime(Settings.recordingOriginPath, length);
         }
@@ -120,13 +84,13 @@ public class RecordLayoutHolder implements RecordButton.OnRecordListener {
     @Override
     public void cancelRecord() {
         hideAnim();
-        Toast.makeText(mWholeView.getContext(), "取消录音", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "取消录音", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void recordLengthShort() {
         hideAnim();
-        Toast.makeText(mWholeView.getContext(), "录音太短", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "录音太短", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -135,7 +99,6 @@ public class RecordLayoutHolder implements RecordButton.OnRecordListener {
             mTime.setText("按住录音");
         } else {
             mTime.setText(TimeDateUtils.formatRecordTime((int) time));
-
         }
     }
 
