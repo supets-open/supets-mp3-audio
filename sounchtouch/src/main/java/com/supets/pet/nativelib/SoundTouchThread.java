@@ -43,8 +43,14 @@ public class SoundTouchThread extends Thread {
         //MP3 init
         FileOutputStream output = null;
         try {
+
+            File file = new File(Settings.recordingPath);
+            if (!file.exists()) {
+                file.mkdir();
+            }
             output = new FileOutputStream(new File(Settings.recordingMp3Path));
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
             return;
         }
         MP3Recorder.init(16000, 1, 16000, 32);
