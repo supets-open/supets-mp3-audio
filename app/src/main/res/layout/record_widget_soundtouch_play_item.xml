@@ -2,7 +2,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
   >
 
-    <com.supets.pet.mp3.PlayTransferTextView
+    <com.supets.pet.dialog.PlayTransferTextView
         android:id="@+id/changebtn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

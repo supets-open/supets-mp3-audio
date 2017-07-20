@@ -9,9 +9,6 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.supets.pet.R;
-import com.supets.pet.mp3.PlayLayoutHolder;
-import com.supets.pet.mp3.RecordLayoutHolder;
-import com.supets.pet.mp3.SounchTouchHolder;
 import com.supets.pet.nativelib.Settings;
 
 public class RecordDialog extends Dialog implements
@@ -51,11 +48,6 @@ public class RecordDialog extends Dialog implements
         });
     }
 
-
-    @Override
-    public void show() {
-        super.show();
-    }
 
     @Override
     public void send() {
@@ -98,7 +90,6 @@ public class RecordDialog extends Dialog implements
     public void setOnSendVoiceListenr(OnSendVoiceListenr mListener) {
         this.mListener = mListener;
     }
-
 
     public  interface OnSendVoiceListenr{
          void onSend(MYAudio audio);

@@ -1,4 +1,4 @@
-package com.supets.pet.mp3;
+package com.supets.pet.dialog;
 public class OnPlayMusicInterface  {
 	
 	   //播放

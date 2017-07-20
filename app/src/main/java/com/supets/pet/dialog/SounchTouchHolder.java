@@ -1,11 +1,10 @@
-package com.supets.pet.mp3;
+package com.supets.pet.dialog;
 
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.supets.pet.R;
-import com.supets.pet.dialog.NotifityBus;
 
 public class SounchTouchHolder implements View.OnClickListener {
 

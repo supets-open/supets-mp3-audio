@@ -1,4 +1,4 @@
-package com.supets.pet.mp3;
+package com.supets.pet.dialog;
 
 import android.content.Context;
 import android.graphics.drawable.Animatable;
@@ -9,12 +9,10 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.supets.pet.R;
-import com.supets.pet.dialog.TimeDateUtils;
-import com.supets.pet.mp3.PlayButton.OnPlayCallBackListener;
 import com.supets.pet.nativelib.SampleVoice;
 
 public class PlaySoundTouchWidget extends FrameLayout implements
-        OnPlayCallBackListener {
+        PlayButton.OnPlayCallBackListener {
 
     private int[] effectBack = new int[]{
             R.drawable.icon_trnsfer_effect_origin,

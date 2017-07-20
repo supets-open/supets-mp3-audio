@@ -2,8 +2,6 @@ package com.supets.pet.dialog;
 
 import android.os.Bundle;
 
-import com.supets.pet.mp3.PlayButton;
-
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 

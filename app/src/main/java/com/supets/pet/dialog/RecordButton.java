@@ -1,4 +1,9 @@
-package com.supets.pet.mp3;
+package com.supets.pet.dialog;
+
+import java.io.File;
+
+import com.supets.pet.nativelib.Settings;
+import com.supets.pet.nativelib.SoundTouchClient;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,11 +14,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-
-import com.supets.pet.nativelib.Settings;
-import com.supets.pet.nativelib.SoundTouchClient;
-
-import java.io.File;
 
 public class RecordButton extends Button implements View.OnTouchListener {
 
@@ -84,47 +84,47 @@ public class RecordButton extends Button implements View.OnTouchListener {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			switch (msg.what) {
-			case Settings.CHANGVOICE_SUCCESS:
-				String path = (String) msg.obj;
-				if (isCancel) {
-					mListener.cancelRecord();
-				} else {
-
-					if (TextUtils.isEmpty(path)) {
-						mListener.recordFail();
+				case Settings.CHANGVOICE_SUCCESS:
+					String path = (String) msg.obj;
+					if (isCancel) {
+						mListener.cancelRecord();
 					} else {
-						long intervalTime = System.currentTimeMillis()
-								- mStartTime;
-						if (intervalTime < MIN_INTERVAL_TIME) {
-							mListener.recordLengthShort();
-							File file = new File(path);
-							file.delete();
+
+						if (TextUtils.isEmpty(path)) {
+							mListener.recordFail();
 						} else {
-							mListener.recordSuccess(path, (int)(intervalTime/1000));
+							long intervalTime = System.currentTimeMillis()
+									- mStartTime;
+							if (intervalTime < MIN_INTERVAL_TIME) {
+								mListener.recordLengthShort();
+								File file = new File(path);
+								file.delete();
+							} else {
+								mListener.recordSuccess(path, (int)(intervalTime/1000));
+							}
 						}
 					}
-				}
-				break;
-			case Settings.CHANGEVOICE_FAIL:
-				if (isCancel) {
-					mListener.cancelRecord();
-				} else {
-					mListener.recordFail();
-				}
-				break;
+					break;
+				case Settings.CHANGEVOICE_FAIL:
+					if (isCancel) {
+						mListener.cancelRecord();
+					} else {
+						mListener.recordFail();
+					}
+					break;
 
-			case -9999://时间超了
-				stopRecording();
-				break;
-			case -8888:
-				mListener.recordStart();
-				break;
-			case 7777:
-				int time = (int) ((System.currentTimeMillis() - mStartTime) / 1000);
-				mListener.recordTime(time);
-				break;
-			default:
-				break;
+				case -9999://时间超了
+					stopRecording();
+					break;
+				case -8888:
+					mListener.recordStart();
+					break;
+				case 7777:
+					int time = (int) ((System.currentTimeMillis() - mStartTime) / 1000);
+					mListener.recordTime(time);
+					break;
+				default:
+					break;
 			}
 		}
 
@@ -147,21 +147,21 @@ public class RecordButton extends Button implements View.OnTouchListener {
 	public boolean onTouch(View arg0, MotionEvent event) {
 		int action = event.getAction();
 		switch (action) {
-		case MotionEvent.ACTION_DOWN:
-			if (!passed) {
+			case MotionEvent.ACTION_DOWN:
+				if (!passed) {
 
-				startRecording();
-			}
-			break;
-		case MotionEvent.ACTION_CANCEL:
-		case MotionEvent.ACTION_OUTSIDE:
-		case MotionEvent.ACTION_UP:
-			if (passed) {
-				stopRecording(event);
-			}
-			passed = false;
-			break;
-		default:
+					startRecording();
+				}
+				break;
+			case MotionEvent.ACTION_CANCEL:
+			case MotionEvent.ACTION_OUTSIDE:
+			case MotionEvent.ACTION_UP:
+				if (passed) {
+					stopRecording(event);
+				}
+				passed = false;
+				break;
+			default:
 		}
 		return false;
 	}

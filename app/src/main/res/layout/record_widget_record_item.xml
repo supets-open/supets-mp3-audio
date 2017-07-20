@@ -45,7 +45,7 @@
             android:background="@drawable/anim_drawable_record_right_anim" />
     </RelativeLayout>
 
-    <com.supets.pet.mp3.RecordButton
+    <com.supets.pet.dialog.RecordButton
         android:id="@+id/record"
         android:layout_marginBottom="15dp"
         android:layout_width="100dp"

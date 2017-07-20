@@ -1,4 +1,4 @@
-package com.supets.pet.mp3;
+package com.supets.pet.dialog;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,8 +9,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.supets.pet.dialog.NotifityBus;
-import com.supets.pet.mp3.PlayButton.OnPlayCallBackListener;
 import com.supets.pet.nativelib.SampleVoice;
 import com.supets.pet.nativelib.Settings;
 import com.supets.pet.nativelib.SoundTouchVoiceClient;
@@ -231,10 +229,10 @@ public class PlayTransferTextView extends TextView implements
         setBackGround();
     }
 
-    private OnPlayCallBackListener mListener;
+    private PlayButton.OnPlayCallBackListener mListener;
 
     public void setOnPlayCallBackListener(
-            OnPlayCallBackListener playLayoutHolder) {
+            PlayButton.OnPlayCallBackListener playLayoutHolder) {
         this.mListener = playLayoutHolder;
     }
 

@@ -1,4 +1,4 @@
-package com.supets.pet.mp3;
+package com.supets.pet.dialog;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.supets.pet.R;
-import com.supets.pet.dialog.NotifityBus;
 import com.supets.pet.nativelib.Settings;
 
 /**

@@ -42,7 +42,7 @@
             android:background="@drawable/anim_drawable_record_right_anim" />
     </RelativeLayout>
 
-    <com.supets.pet.mp3.PlayButton
+    <com.supets.pet.dialog.PlayButton
         android:id="@+id/playbtn"
         android:layout_width="100dp"
         android:layout_height="100dp"

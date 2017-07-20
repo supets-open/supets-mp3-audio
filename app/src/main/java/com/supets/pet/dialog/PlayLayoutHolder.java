@@ -1,4 +1,4 @@
-package com.supets.pet.mp3;
+package com.supets.pet.dialog;
 
 import android.graphics.drawable.Animatable;
 import android.view.View;
@@ -6,11 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.supets.pet.R;
-import com.supets.pet.dialog.NotifityBus;
-import com.supets.pet.dialog.TimeDateUtils;
-import com.supets.pet.mp3.PlayButton.OnPlayCallBackListener;
 
-public class PlayLayoutHolder implements OnPlayCallBackListener,
+public class PlayLayoutHolder implements PlayButton.OnPlayCallBackListener,
 		View.OnClickListener {
 	private PlayButton mRecordButton;
 	private TextView mTime;

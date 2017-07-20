@@ -1,4 +1,4 @@
-package com.supets.pet.mp3;
+package com.supets.pet.dialog;
 
 import android.graphics.drawable.Animatable;
 import android.view.View;
@@ -6,11 +6,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.supets.pet.R;
-import com.supets.pet.dialog.TimeDateUtils;
-import com.supets.pet.mp3.RecordButton.OnRecordListener;
 import com.supets.pet.nativelib.Settings;
 
-public class RecordLayoutHolder implements OnRecordListener {
+public class RecordLayoutHolder implements RecordButton.OnRecordListener {
     private RecordButton mRecordButton;
     private TextView mTime;
     private View leftAnim;
