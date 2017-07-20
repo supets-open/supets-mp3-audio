@@ -32,15 +32,10 @@ android {
 
     buildTypes {
         debug {
-
-            buildConfigField "boolean", "API_ENV", "false"
-
             zipAlignEnabled true
         }
 
         release {
-            buildConfigField "boolean", "API_ENV", "true"
-
             zipAlignEnabled true
             minifyEnabled true
             proguardFile './proguard-rules.pro'
